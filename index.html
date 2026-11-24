@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WebToolBox — Smart Image Resizer & Live Currency Converter | UtilityNest</title>
+  <meta name="description" content="Free client-side browser utilities by UtilityNest WebToolBox: resize & compress images to 300x300 or PDF, and convert 150+ global currencies in real time." />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="https://utilitynest123.github.io/WebToolBox/" />
+
+  <link rel="icon" type="image/png" sizes="48x48" href="https://utilitynest123.github.io/favicon-48x48.png" />
+  <link rel="icon" type="image/png" href="https://utilitynest123.github.io/favicon.png" />
+  <link rel="apple-touch-icon" href="https://utilitynest123.github.io/apple-touch-icon.png" />
+
+  <style>
+    :root {
+      --bg-color: #0f172a;
+      --container-bg: #1e293b;
+      --card-alt: #162032;
+      --text-color: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary-color: #10b981;
+      --primary-hover: #059669;
+      --accent-amber: #f59e0b;
+      --border-color: #334155;
+    }
+    [data-theme="light"] {
+      --bg-color: #f8fafc;
+      --container-bg: #ffffff;
+      --card-alt: #f1f5f9;
+      --text-color: #0f172a;
+      --text-muted: #475569;
+      --primary-color: #059669;
+      --primary-hover: #047857;
+      --accent-amber: #d97706;
+      --border-color: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.65; transition: background-color 0.25s, color 0.25s; }
+    a { color: inherit; text-decoration: none; }
+
+    header {
+      background: var(--container-bg);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0.9rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .logo { display: flex; align-items: center; gap: 0.65rem; font-size: 1.3rem; font-weight: 800; }
+    .logo img { width: 38px; height: 38px; border-radius: 50%; border: 1.5px solid var(--primary-color); object-fit: cover; }
+    .logo span { color: var(--primary-color); }
+    .nav-links { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; font-size: 0.92rem; font-weight: 600; }
+    .nav-links a:hover { color: var(--primary-color); }
+    .theme-toggle {
+      background: transparent;
+      border: 1.5px solid var(--primary-color);
+      color: var(--primary-color);
+      padding: 0.4rem 0.85rem;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    main { max-width: 1120px; margin: 0 auto; padding: 0 1.25rem; }
+    .hero { text-align: center; padding: 3.5rem 1rem 2.5rem; max-width: 780px; margin: 0 auto; }
+    .badge {
+      display: inline-block;
+      background: rgba(16, 185, 129, 0.14);
+      color: var(--primary-color);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      padding: 0.3rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .hero h1 { font-size: clamp(1.9rem, 4vw, 2.75rem); line-height: 1.2; margin-bottom: 1rem; }
+    .hero p { color: var(--text-muted); font-size: 1.05rem; }
+
+    .tools-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.75rem; margin: 2rem 0 3.5rem; }
+    .tool-card {
+      background: var(--container-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color 0.25s, transform 0.2s;
+    }
+    .tool-card:hover { border-color: var(--primary-color); transform: translateY(-3px); }
+    .tool-tag {
+      display: inline-block;
+      width: fit-content;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0.2rem 0.65rem;
+      border-radius: 6px;
+      margin-bottom: 0.85rem;
+      background: rgba(16, 185, 129, 0.14);
+      color: var(--primary-color);
+    }
+    .tool-tag.amber { background: rgba(245, 158, 11, 0.14); color: var(--accent-amber); }
+    .tool-card h2 { font-size: 1.45rem; margin-bottom: 0.7rem; }
+    .tool-card p { color: var(--text-muted); font-size: 0.96rem; margin-bottom: 1.25rem; }
+    .tool-card ul { list-style: none; margin-bottom: 1.6rem; font-size: 0.9rem; color: var(--text-muted); }
+    .tool-card li { padding: 0.35rem 0; border-bottom: 1px solid var(--border-color); }
+    .tool-card li::before { content: "✓ "; color: var(--primary-color); font-weight: bold; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--primary-color);
+      color: #ffffff;
+      font-weight: 700;
+      padding: 0.85rem 1.4rem;
+      border-radius: 10px;
+      transition: background 0.2s;
+    }
+    .btn:hover { background: var(--primary-hover); }
+    .btn.amber { background: var(--accent-amber); color: #111827; }
+
+    .info-box {
+      background: var(--container-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 3.5rem;
+    }
+    .info-box h2 { font-size: 1.4rem; margin-bottom: 0.8rem; color: var(--primary-color); }
+    .info-box p { color: var(--text-muted); margin-bottom: 0.85rem; }
+
+    footer {
+      background: var(--container-bg);
+      border-top: 1px solid var(--border-color);
+      padding: 2.25rem 1.25rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    .footer-links { display: flex; justify-content: center; gap: 1.4rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .footer-links a:hover { color: var(--primary-color); }
+
+    @media (max-width: 760px) {
+      .tools-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <header>
+    <div class="nav-wrap">
+      <a href="./" class="logo">
+        <img src="https://utilitynest123.github.io/logo.jpg" alt="UtilityNest Logo" />
+        <div>Web<span>ToolBox</span></div>
+      </a>
+      <nav class="nav-links">
+        <a href="./">Home</a>
+        <a href="./resizer.html">Image Resizer &amp; PDF</a>
+        <a href="./currency.html">Currency Converter</a>
+        <a href="https://utilitynest123.github.io/">UtilityNest Hub &nearr;</a>
+        <button class="theme-toggle" id="theme-btn" type="button">☀️ Light</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <span class="badge">100% Client-Side Privacy &bull; Part of UtilityNest</span>
+      <h1>Essential Browser Utilities for Media &amp; Global Currency</h1>
+      <p>WebToolBox delivers instant, zero-upload image resizing, compression, PDF conversion, and real-time exchange rates for over 150 currencies directly inside your browser.</p>
+    </section>
+
+    <section class="tools-grid">
+      <!-- Tool 1: Image Resizer -->
+      <article class="tool-card">
+        <div>
+          <span class="tool-tag">Image &amp; PDF Utility</span>
+          <h2>Smart Image Resizer, Compressor &amp; PDF Converter</h2>
+          <p>Resize photos to exact pixel dimensions (including 300&times;300 job photos and 300&times;80 signatures), reduce file sizes in KB, apply filters, or export as clean PDF documents.</p>
+          <ul>
+            <li>1-Click presets: 300&times;300, 300&times;80, Passport, YouTube, Instagram &amp; A4</li>
+            <li>Aspect ratio lock, 90&deg; rotation &amp; grayscale filter</li>
+            <li>Export to JPG, PNG, WEBP, or printable PDF locally</li>
+          </ul>
+        </div>
+        <a href="./resizer.html" class="btn">Open Image Resizer &rarr;</a>
+      </article>
+
+      <!-- Tool 2: Currency Converter -->
+      <article class="tool-card">
+        <div>
+          <span class="tool-tag amber">Live Forex Rates</span>
+          <h2>Live Global Currency Converter</h2>
+          <p>Convert USD, BDT, EUR, GBP, INR, SAR, AED, and 150+ international currencies instantly using live market exchange rates with one-click currency swapping.</p>
+          <ul>
+            <li>Real-time exchange rates updated automatically</li>
+            <li>Quick access to major global and South Asian currencies</li>
+            <li>Instant unit rate breakdown and mobile-friendly keypad</li>
+          </ul>
+        </div>
+        <a href="./currency.html" class="btn amber">Open Currency Converter &rarr;</a>
+      </article>
+    </section>
+
+    <section class="info-box">
+      <h2>Why WebToolBox Processes Everything Locally</h2>
+      <p>When resizing personal passport photos, job application signatures, or financial documents, uploading files to unknown third-party servers creates unnecessary privacy risks. WebToolBox uses HTML5 Canvas and client-side JavaScript so your images never leave your smartphone or computer.</p>
+      <p>Part of the <a href="https://utilitynest123.github.io/" style="color:var(--primary-color);text-decoration:underline;">UtilityNest</a> digital utility network. All tools are 100% free with no sign-up required.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-links">
+      <a href="./">WebToolBox Home</a>
+      <a href="./resizer.html">Image Resizer</a>
+      <a href="./currency.html">Currency Converter</a>
+      <a href="./about.html">About</a>
+      <a href="./privacy-policy.html">Privacy Policy</a>
+      <a href="./contact.html">Contact</a>
+      <a href="https://utilitynest123.github.io/">UtilityNest Main Hub</a>
+    </div>
+    <p>&copy; 2026 WebToolBox &bull; Part of the UtilityNest Network &bull; Contact: utilitynest123@gmail.com</p>
+  </footer>
+
+  <script>
+    const themeBtn = document.getElementById('theme-btn');
+    const saved = localStorage.getItem('wtb-theme') || 'dark';
+    document.body.setAttribute('data-theme', saved);
+    themeBtn.textContent = saved === 'dark' ? '☀️ Light' : '🌙 Dark';
+    themeBtn.addEventListener('click', () => {
+      const next = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      document.body.setAttribute('data-theme', next);
+      localStorage.setItem('wtb-theme', next);
+      themeBtn.textContent = next === 'dark' ? '☀️ Light' : '🌙 Dark';
+    });
+  </script>
+</body>
+</html>
